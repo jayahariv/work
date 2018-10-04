@@ -15,7 +15,10 @@ class CounterViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+    }
+    
+    @IBAction func onQuit(_ sender: Any) {
+        NSApplication.shared.terminate(sender)
     }
 }
 
