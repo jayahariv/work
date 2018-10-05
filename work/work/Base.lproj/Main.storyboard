@@ -688,7 +688,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="222" height="190"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="LS8-oY-VNa">
+                            <customView translatesAutoresizingMaskIntoConstraints="NO" id="LS8-oY-VNa" customClass="CounterContainerView" customModule="work" customModuleProvider="target">
                                 <rect key="frame" x="20" y="85" width="182" height="85"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FXw-BO-dgQ">
@@ -738,6 +738,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="counterContainer" destination="LS8-oY-VNa" id="Qni-pY-xzd"/>
                         <outlet property="quitButton" destination="gye-5v-mWz" id="4Lp-EY-tbL"/>
                     </connections>
                 </viewController>
