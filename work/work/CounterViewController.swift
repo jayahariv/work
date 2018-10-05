@@ -4,17 +4,18 @@ CounterViewController.swift
 Created on: 10/4/18
 
 Abstract:
-TODO: Purpose of file
+ This will be the popover view controller
 
 */
 
 import Cocoa
 
-class CounterViewController: NSViewController {
+final class CounterViewController: NSViewController {
+    @IBOutlet weak var quitButton: NSButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        initializeView()
     }
     
     @IBAction func onQuit(_ sender: Any) {
@@ -32,6 +33,12 @@ extension CounterViewController {
             fatalError("Why cant i find CounterViewController? - Check Main.storyboard")
         }
         return viewcontroller
+    }
+}
+
+private extension CounterViewController {
+    func initializeView() {
+        quitButton.keyEquivalent = "q"
     }
 }
 

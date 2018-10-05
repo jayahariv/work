@@ -737,6 +737,9 @@
                             <constraint firstAttribute="trailing" secondItem="gye-5v-mWz" secondAttribute="trailing" constant="20" id="uHh-Ge-O1X"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="quitButton" destination="gye-5v-mWz" id="4Lp-EY-tbL"/>
+                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
