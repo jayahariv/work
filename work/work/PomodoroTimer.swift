@@ -12,10 +12,15 @@ import Foundation
 import Repeat
 
 final class PomodoroTimer {
-    private static let instance = PomodoroTimer()
+    /// PUBLIC
     static var shared: PomodoroTimer {
         return instance
     }
+    struct Constants {
+        static let TOGGLE_NOTIFICATION_NAME = "TOGGLE_NOTIFICATION_NAME"
+    }
+    /// PRIVATE
+    private static let instance = PomodoroTimer()
     private var timer: Repeater?
     private var remainingSeconds: Int = 0
     private struct C {
@@ -43,8 +48,6 @@ final class PomodoroTimer {
                 return
             }
             self.remainingSeconds -= 1
-            
-            print(self.remainingSeconds)
         }
         timer?.pause()
     }
@@ -58,6 +61,8 @@ final class PomodoroTimer {
         } else if timer?.state == .paused {
             timer?.start()
         }
+        NotificationCenter.default.post(name: Notification.Name(PomodoroTimer.Constants.TOGGLE_NOTIFICATION_NAME),
+                                        object: nil)
     }
     
     func displayTime() -> String {

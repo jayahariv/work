@@ -13,7 +13,6 @@ import Cocoa
 @objc protocol CounterContainerViewProtocol {
     func onMouseDown()
     @objc optional func onMouseRightClick()
-    func onCommandS()
 }
 
 class CounterContainerView: NSView {
@@ -27,22 +26,5 @@ class CounterContainerView: NSView {
     
     override func rightMouseDown(with theEvent: NSEvent) {
         delegate?.onMouseRightClick?()
-    }
-    
-    override func performKeyEquivalent(with event: NSEvent) -> Bool {
-        if event.type == .keyDown {
-            if (event.modifierFlags.rawValue & NSEvent.ModifierFlags.deviceIndependentFlagsMask.rawValue) == commandKey {
-                switch event.charactersIgnoringModifiers! {
-                case "s":
-                    if let delegate = delegate {
-                        delegate.onCommandS()
-                        return true
-                    }
-                default:
-                    break
-                }
-            }
-        }
-        return super.performKeyEquivalent(with: event)
     }
 }

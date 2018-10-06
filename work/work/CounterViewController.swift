@@ -28,7 +28,8 @@ final class CounterViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initializeView()
-        updateTime()
+        updateCounter()
+        
     }
     
     // MARK: Button Actions
@@ -36,13 +37,17 @@ final class CounterViewController: NSViewController {
         NSApplication.shared.terminate(sender)
     }
     
-    @objc func onToggleTimer() {
-        if pomodoroTimer.state == .executing {
-            countersubheading?.stringValue = C.COUNTER_START_LABEL
-        } else if pomodoroTimer.state == .paused {
-            countersubheading?.stringValue = C.COUNTER_PAUSE_LABEL
+    @objc func updateSubHeading() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            if self.pomodoroTimer.state == .executing {
+                self.countersubheading?.stringValue = C.COUNTER_PAUSE_LABEL
+            } else if self.pomodoroTimer.state == .paused {
+                self.countersubheading?.stringValue = C.COUNTER_START_LABEL
+            }
         }
-        pomodoroTimer.toggle()
     }
 }
 
@@ -64,9 +69,13 @@ private extension CounterViewController {
         quitButton.keyEquivalent = "q"
         counterContainer.delegate = self
         countersubheading?.stringValue = C.COUNTER_START_LABEL
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updateSubHeading),
+                                               name: NSNotification.Name(rawValue: PomodoroTimer.Constants.TOGGLE_NOTIFICATION_NAME),
+                                               object: nil)
     }
     
-    func updateTime() {
+    func updateCounter() {
         uiUpdater = Repeater.every(.seconds(1)) { [weak self] (_) in
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else {
@@ -76,17 +85,14 @@ private extension CounterViewController {
             }
         }
         uiUpdater?.start()
+        updateSubHeading()
     }
 }
 
 
 extension CounterViewController: CounterContainerViewProtocol {
-    func onCommandS() {
-        onToggleTimer()
-    }
-
     func onMouseDown() {
-        onToggleTimer()
+        pomodoroTimer.toggle()
     }
 }
 
