@@ -739,6 +739,8 @@
                     </view>
                     <connections>
                         <outlet property="counterContainer" destination="LS8-oY-VNa" id="Qni-pY-xzd"/>
+                        <outlet property="counterTextfield" destination="FXw-BO-dgQ" id="HD0-Nk-fi0"/>
+                        <outlet property="countersubheading" destination="Qhg-GF-qIl" id="grd-v1-W6b"/>
                         <outlet property="quitButton" destination="gye-5v-mWz" id="4Lp-EY-tbL"/>
                     </connections>
                 </viewController>
