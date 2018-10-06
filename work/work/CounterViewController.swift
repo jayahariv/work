@@ -23,8 +23,8 @@ final class CounterViewController: NSViewController {
         static let LONG_INTERVAL_SEC = 1500
         static let SHORT_BREAK_SEC = 300
         static let LONG_BREAK_SEC = 900
-        static let COUNTER_START_LABEL = "Start"
-        static let COUNTER_PAUSE_LABEL = "Pause"
+        static let COUNTER_START_LABEL = "Start (⌘S)"
+        static let COUNTER_PAUSE_LABEL = "Pause (⌘S)"
     }
 
     // MARK: View Lifecycle
@@ -102,6 +102,10 @@ private extension CounterViewController {
 
 
 extension CounterViewController: CounterContainerViewProtocol {
+    func onCommandS() {
+        onToggleTimer()
+    }
+
     func onMouseDown() {
         onToggleTimer()
     }
