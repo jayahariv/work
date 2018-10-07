@@ -31,7 +31,7 @@ final class PomodoroTimer {
     struct Constants {
         static let TOGGLE_NOTIFICATION = "TOGGLE_NOTIFICATION"
         struct Interval {
-            static let LONG_WORK = 25
+            static let WORK = 25
             static let SHORT_BREAK = 5
             static let LONG_BREAK = 15
         }
@@ -40,6 +40,7 @@ final class PomodoroTimer {
     private static let instance = PomodoroTimer()
     private var timer: Repeater?
     private var remainingSeconds: Int = 0
+    private var isWorking: Bool = false
     
     /**
      Call this method once for setting up the timer from AppDelegate
@@ -49,14 +50,16 @@ final class PomodoroTimer {
         guard timer == nil else {
             return
         }
-        remainingSeconds = Constants.Interval.LONG_WORK * TimeConstants.MINUTE_IN_SECONDS
+        isWorking = true
+        remainingSeconds = Constants.Interval.WORK * TimeConstants.MINUTE_IN_SECONDS
         timer = Repeater.every(.seconds(1)) { [weak self] (_) in
             guard let self = self else {
                 return
             }
             
             guard self.remainingSeconds > 0 else {
-                self.reset()
+                self.timer?.pause()
+                self.skip()
                 return
             }
             self.remainingSeconds -= 1
@@ -77,7 +80,16 @@ final class PomodoroTimer {
                                         object: nil)
     }
     
-    func reset() {
-        timer = nil
+    func skip() {
+        if let state = timer?.state, state == .executing {
+            toggle()
+        }
+        
+        if isWorking {
+            remainingSeconds = Constants.Interval.SHORT_BREAK * TimeConstants.MINUTE_IN_SECONDS
+        } else {
+            remainingSeconds = Constants.Interval.WORK * TimeConstants.MINUTE_IN_SECONDS
+        }
+        isWorking.toggle()
     }
 }

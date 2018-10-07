@@ -81,7 +81,7 @@ private extension CounterViewController {
                 guard let self = self else {
                     return
                 }
-                self.counterTextfield?.stringValue = self.pomodoroTimer.getTime()
+                self.counterTextfield?.stringValue = self.pomodoroTimer.time
             }
         }
         uiUpdater?.start()

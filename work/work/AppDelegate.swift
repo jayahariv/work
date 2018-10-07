@@ -38,6 +38,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         pomodoroTimer.toggle()
     }
     
+    @IBAction func onSkipInterval(_ sender: Any){
+        pomodoroTimer.skip()
+        statusItem.button?.title = "~\(pomodoroTimer.minute)"
+    }
+    
     // MARK: Helper methods
     
     func initializeCounter() {
@@ -80,12 +85,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func setupStatusTitle() {
-        statusTitleUpdater = Repeater.every(.minutes(1)) { [weak self] (_) in
+        statusTitleUpdater = Repeater.every(.seconds(1)) { [weak self] (_) in
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else {
                     return
                 }
-                self.statusItem.button?.title = "~\(self.pomodoroTimer.getMinute())"
+                self.statusItem.button?.title = "~\(self.pomodoroTimer.time)"
             }
         }
         statusTitleUpdater?.start()

@@ -63,6 +63,11 @@
                                                 <action selector="toggleCounter:" target="Voe-Tx-rLC" id="jm8-BD-bHd"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Skip Interval" keyEquivalent="." id="VVT-9B-1vC">
+                                            <connections>
+                                                <action selector="onSkipInterval:" target="Voe-Tx-rLC" id="T7F-9g-g1g"/>
+                                            </connections>
+                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
@@ -116,7 +121,7 @@
                             </customView>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HCd-rp-UgU">
                                 <rect key="frame" x="14" y="46" width="194" height="32"/>
-                                <buttonCell key="cell" type="push" title="Skip Interval (⌘.)" bezelStyle="rounded" alignment="center" enabled="NO" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="iyA-38-xoO">
+                                <buttonCell key="cell" type="push" title="Skip Interval (⌘.)" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="iyA-38-xoO">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
