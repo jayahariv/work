@@ -49,7 +49,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         pomodoroTimer.setupTimer()
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(updateStatusTitle),
-                                               name: NSNotification.Name(rawValue: PomodoroTimer.Constants.TOGGLE_NOTIFICATION_NAME),
+                                               name: NSNotification.Name(rawValue: PomodoroTimer.Constants.TOGGLE_NOTIFICATION),
                                                object: nil)
     }
     
@@ -64,16 +64,28 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @objc func updateStatusTitle() {
-        print(pomodoroTimer.state)
-        guard pomodoroTimer.state != .finished else {
-            return
+        if statusTitleUpdater == nil {
+            statusItem.button?.title = "~25"
+            setupStatusTitle()
         }
-        statusTitleUpdater = Repeater.every(.seconds(10)) { [weak self] (_) in
+        
+        switch pomodoroTimer.state {
+        case .paused:
+            statusTitleUpdater?.pause()
+        case .executing:
+            statusTitleUpdater?.start()
+        default:
+            break
+        }
+    }
+    
+    func setupStatusTitle() {
+        statusTitleUpdater = Repeater.every(.minutes(1)) { [weak self] (_) in
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else {
                     return
                 }
-                self.statusItem.button?.title = self.pomodoroTimer.displayTime()
+                self.statusItem.button?.title = "~\(self.pomodoroTimer.getMinute())"
             }
         }
         statusTitleUpdater?.start()
