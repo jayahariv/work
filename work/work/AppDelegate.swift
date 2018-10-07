@@ -9,14 +9,16 @@ TODO: Purpose of file
 */
 
 import Cocoa
+import Repeat
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    let statusItem = NSStatusBar.system.statusItem(withLength:NSStatusItem.squareLength)
+    let statusItem = NSStatusBar.system.statusItem(withLength:NSStatusItem.variableLength)
     let popover = NSPopover()
     let counterViewController = CounterViewController.freshController()
     private let pomodoroTimer = PomodoroTimer.shared
+    private var statusTitleUpdater: Repeater?
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         initializeCounter()
@@ -40,13 +42,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func initializeCounter() {
         if let button = statusItem.button {
-            let image = NSImage(named:NSImage.Name("statusIcon"))
-            image?.isTemplate = true
-            button.image = image
+            button.title = "WoRk"
             button.action = #selector(togglePopover(_:))
         }
         popover.contentViewController = counterViewController
         pomodoroTimer.setupTimer()
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updateStatusTitle),
+                                               name: NSNotification.Name(rawValue: PomodoroTimer.Constants.TOGGLE_NOTIFICATION_NAME),
+                                               object: nil)
     }
     
     func showPopover(sender: Any?) {
@@ -57,6 +61,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func closePopover(sender: Any?) {
         popover.performClose(sender)
+    }
+    
+    @objc func updateStatusTitle() {
+        print(pomodoroTimer.state)
+        guard pomodoroTimer.state != .finished else {
+            return
+        }
+        statusTitleUpdater = Repeater.every(.seconds(10)) { [weak self] (_) in
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else {
+                    return
+                }
+                self.statusItem.button?.title = self.pomodoroTimer.displayTime()
+            }
+        }
+        statusTitleUpdater?.start()
     }
 }
 
