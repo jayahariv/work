@@ -48,7 +48,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     
     func initializeCounter() {
         if let button = statusItem.button {
-            button.title = "WoRk"
+            let icon = NSImage(named: NSImage.Name("StatusIcon"))
+            icon?.isTemplate = true
+            button.image = icon
+            button.imagePosition = .imageRight
+            button.title = ""
             button.action = #selector(togglePopover(_:))
         }
         popover.contentViewController = counterViewController

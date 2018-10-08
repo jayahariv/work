@@ -35,7 +35,7 @@ final class PomodoroTimer {
         }
         struct Interval {
             static let WORK = 25
-            static let SHORT_BREAK = 1
+            static let SHORT_BREAK = 5
             static let LONG_BREAK = 15
         }
     }

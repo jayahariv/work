@@ -8,7 +8,7 @@ Abstract:
 
 */
 
-import Foundation
+import Cocoa
 
 final class Notify: NSObject {
     /// PUBLIC
