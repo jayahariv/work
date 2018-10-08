@@ -15,6 +15,7 @@
 		082E41002167A800005F302D /* CounterContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082E40FF2167A800005F302D /* CounterContainerView.swift */; };
 		082E41022168F1E1005F302D /* TimeConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082E41012168F1E1005F302D /* TimeConstants.swift */; };
 		08900F4F2169081100DF6CC1 /* PomodoroTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08900F4E2169081100DF6CC1 /* PomodoroTimer.swift */; };
+		08900F51216AB59F00DF6CC1 /* Notify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08900F50216AB59F00DF6CC1 /* Notify.swift */; };
 		E27DA7E47F19DDF8D31679A1 /* Pods_work.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2BABD7A8CE4E34473571E43 /* Pods_work.framework */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +44,7 @@
 		082E40FF2167A800005F302D /* CounterContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterContainerView.swift; sourceTree = "<group>"; };
 		082E41012168F1E1005F302D /* TimeConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeConstants.swift; sourceTree = "<group>"; };
 		08900F4E2169081100DF6CC1 /* PomodoroTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroTimer.swift; sourceTree = "<group>"; };
+		08900F50216AB59F00DF6CC1 /* Notify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notify.swift; sourceTree = "<group>"; };
 		4BF4DF5623CA742628D60782 /* Pods-work.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-work.release.xcconfig"; path = "Target Support Files/Pods-work/Pods-work.release.xcconfig"; sourceTree = "<group>"; };
 		E2BABD7A8CE4E34473571E43 /* Pods_work.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_work.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -98,6 +100,7 @@
 				082E40E721664D54005F302D /* work.entitlements */,
 				082E41012168F1E1005F302D /* TimeConstants.swift */,
 				08900F4E2169081100DF6CC1 /* PomodoroTimer.swift */,
+				08900F50216AB59F00DF6CC1 /* Notify.swift */,
 			);
 			path = work;
 			sourceTree = "<group>";
@@ -180,6 +183,11 @@
 				TargetAttributes = {
 					082E40D921664D54005F302D = {
 						CreatedOnToolsVersion = 10.0;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 0;
+							};
+						};
 					};
 					082E40EB21664D54005F302D = {
 						CreatedOnToolsVersion = 10.0;
@@ -279,6 +287,7 @@
 			files = (
 				082E40E021664D54005F302D /* CounterViewController.swift in Sources */,
 				082E40DE21664D54005F302D /* AppDelegate.swift in Sources */,
+				08900F51216AB59F00DF6CC1 /* Notify.swift in Sources */,
 				082E41022168F1E1005F302D /* TimeConstants.swift in Sources */,
 				08900F4F2169081100DF6CC1 /* PomodoroTimer.swift in Sources */,
 				082E41002167A800005F302D /* CounterContainerView.swift in Sources */,

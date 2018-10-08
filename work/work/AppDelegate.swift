@@ -4,7 +4,7 @@ AppDelegate.swift
 Created on: 10/4/18
 
 Abstract:
-TODO: Purpose of file
+AppDelegate
 
 */
 
@@ -12,7 +12,7 @@ import Cocoa
 import Repeat
 
 @NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDelegate {
 
     let statusItem = NSStatusBar.system.statusItem(withLength:NSStatusItem.variableLength)
     let popover = NSPopover()
@@ -21,6 +21,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var statusTitleUpdater: Repeater?
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        Notify.shared.initialize()
         initializeCounter()
     }
     
@@ -54,7 +55,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         pomodoroTimer.setupTimer()
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(updateStatusTitle),
-                                               name: NSNotification.Name(rawValue: PomodoroTimer.Constants.TOGGLE_NOTIFICATION),
+                                               name: NSNotification.Name(rawValue: PomodoroTimer.Constants.NotificationName.TOGGLE),
                                                object: nil)
     }
     
@@ -96,4 +97,5 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusTitleUpdater?.start()
     }
 }
+
 

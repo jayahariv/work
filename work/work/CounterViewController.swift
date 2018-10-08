@@ -71,7 +71,7 @@ private extension CounterViewController {
         countersubheading?.stringValue = C.COUNTER_START_LABEL
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(updateSubHeading),
-                                               name: NSNotification.Name(rawValue: PomodoroTimer.Constants.TOGGLE_NOTIFICATION),
+                                               name: NSNotification.Name(rawValue: PomodoroTimer.Constants.NotificationName.TOGGLE),
                                                object: nil)
     }
     

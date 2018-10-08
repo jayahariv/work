@@ -29,10 +29,13 @@ final class PomodoroTimer {
     }
     
     struct Constants {
-        static let TOGGLE_NOTIFICATION = "TOGGLE_NOTIFICATION"
+        struct NotificationName {
+            static let TOGGLE = "NOTIFICATION_TOGGLE_NAME"
+            static let FINISH = "NOTIFICATION_FINISH_NAME"
+        }
         struct Interval {
             static let WORK = 25
-            static let SHORT_BREAK = 5
+            static let SHORT_BREAK = 1
             static let LONG_BREAK = 15
         }
     }
@@ -58,8 +61,7 @@ final class PomodoroTimer {
             }
             
             guard self.remainingSeconds > 0 else {
-                self.timer?.pause()
-                self.skip()
+                self.finishTimer()
                 return
             }
             self.remainingSeconds -= 1
@@ -76,7 +78,7 @@ final class PomodoroTimer {
         } else if timer?.state == .paused {
             timer?.start()
         }
-        NotificationCenter.default.post(name: Notification.Name(PomodoroTimer.Constants.TOGGLE_NOTIFICATION),
+        NotificationCenter.default.post(name: Notification.Name(PomodoroTimer.Constants.NotificationName.TOGGLE),
                                         object: nil)
     }
     
@@ -91,5 +93,17 @@ final class PomodoroTimer {
             remainingSeconds = Constants.Interval.WORK * TimeConstants.MINUTE_IN_SECONDS
         }
         isWorking.toggle()
+    }
+}
+
+private extension PomodoroTimer {
+    func finishTimer() {
+        if isWorking {
+            Notify.shared.takeBreak()
+        } else {
+            Notify.shared.timeToWork()
+        }
+        timer?.pause()
+        skip()
     }
 }
