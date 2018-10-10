@@ -10,6 +10,7 @@ Abstract:
 
 import Foundation
 import Repeat
+import CoreData
 
 final class PomodoroTimer {
     /// PUBLIC
@@ -26,6 +27,9 @@ final class PomodoroTimer {
     }
     var minute: String {
         return String(format: "%02d", remainingSeconds / TimeConstants.MINUTE_IN_SECONDS)
+    }
+    var todaysFinishedTaskCount: Int {
+        return getTodaysFinishedTasks().count
     }
     
     struct Constants {
@@ -44,6 +48,7 @@ final class PomodoroTimer {
     private var timer: Repeater?
     private var remainingSeconds: Int = 0
     private var isWorking: Bool = false
+    private let coredataManager = CoreDataManager.shared
     
     /**
      Call this method once for setting up the timer from AppDelegate
@@ -99,11 +104,35 @@ final class PomodoroTimer {
 private extension PomodoroTimer {
     func finishTimer() {
         if isWorking {
+            saveInterval()
             Notify.shared.takeBreak()
         } else {
             Notify.shared.timeToWork()
         }
         timer?.pause()
         skip()
+    }
+    
+    func saveInterval() {
+        let task = Task(context: coredataManager.viewContext)
+        task.date = Date()
+        coredataManager.saveContext()
+    }
+    
+    func getTodaysFinishedTasks() -> [Task] {
+        var tasks = [Task]()
+        var calendar = Calendar.current
+        calendar.timeZone = NSTimeZone.local
+        let dateFrom = calendar.startOfDay(for: Date())
+
+        
+        let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
+        fetchRequest.predicate =  NSPredicate(format: "date > %@", dateFrom as NSDate)
+        do {
+            tasks = try coredataManager.viewContext.fetch(fetchRequest)
+        } catch {
+            print(error)
+        }
+        return tasks
     }
 }

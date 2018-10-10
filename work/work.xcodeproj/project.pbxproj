@@ -16,6 +16,9 @@
 		082E41022168F1E1005F302D /* TimeConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082E41012168F1E1005F302D /* TimeConstants.swift */; };
 		08900F4F2169081100DF6CC1 /* PomodoroTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08900F4E2169081100DF6CC1 /* PomodoroTimer.swift */; };
 		08900F51216AB59F00DF6CC1 /* Notify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08900F50216AB59F00DF6CC1 /* Notify.swift */; };
+		08900F55216CDEAF00DF6CC1 /* work.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 08900F53216CDEAF00DF6CC1 /* work.xcdatamodeld */; };
+		08900F57216CE09A00DF6CC1 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08900F56216CE09A00DF6CC1 /* CoreDataManager.swift */; };
+		08900F59216DA83F00DF6CC1 /* UserPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08900F58216DA83F00DF6CC1 /* UserPreference.swift */; };
 		E27DA7E47F19DDF8D31679A1 /* Pods_work.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2BABD7A8CE4E34473571E43 /* Pods_work.framework */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +48,9 @@
 		082E41012168F1E1005F302D /* TimeConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeConstants.swift; sourceTree = "<group>"; };
 		08900F4E2169081100DF6CC1 /* PomodoroTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroTimer.swift; sourceTree = "<group>"; };
 		08900F50216AB59F00DF6CC1 /* Notify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notify.swift; sourceTree = "<group>"; };
+		08900F54216CDEAF00DF6CC1 /* work.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = work.xcdatamodel; sourceTree = "<group>"; };
+		08900F56216CE09A00DF6CC1 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		08900F58216DA83F00DF6CC1 /* UserPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreference.swift; sourceTree = "<group>"; };
 		4BF4DF5623CA742628D60782 /* Pods-work.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-work.release.xcconfig"; path = "Target Support Files/Pods-work/Pods-work.release.xcconfig"; sourceTree = "<group>"; };
 		E2BABD7A8CE4E34473571E43 /* Pods_work.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_work.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -91,6 +97,7 @@
 		082E40DC21664D54005F302D /* work */ = {
 			isa = PBXGroup;
 			children = (
+				08900F52216CDE9D00DF6CC1 /* coredata */,
 				082E40DD21664D54005F302D /* AppDelegate.swift */,
 				082E40DF21664D54005F302D /* CounterViewController.swift */,
 				082E40FF2167A800005F302D /* CounterContainerView.swift */,
@@ -101,6 +108,7 @@
 				082E41012168F1E1005F302D /* TimeConstants.swift */,
 				08900F4E2169081100DF6CC1 /* PomodoroTimer.swift */,
 				08900F50216AB59F00DF6CC1 /* Notify.swift */,
+				08900F58216DA83F00DF6CC1 /* UserPreference.swift */,
 			);
 			path = work;
 			sourceTree = "<group>";
@@ -112,6 +120,15 @@
 				082E40F221664D54005F302D /* Info.plist */,
 			);
 			path = workTests;
+			sourceTree = "<group>";
+		};
+		08900F52216CDE9D00DF6CC1 /* coredata */ = {
+			isa = PBXGroup;
+			children = (
+				08900F53216CDEAF00DF6CC1 /* work.xcdatamodeld */,
+				08900F56216CE09A00DF6CC1 /* CoreDataManager.swift */,
+			);
+			path = coredata;
 			sourceTree = "<group>";
 		};
 		708643035B06ECFD013655E6 /* Pods */ = {
@@ -286,10 +303,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				082E40E021664D54005F302D /* CounterViewController.swift in Sources */,
+				08900F55216CDEAF00DF6CC1 /* work.xcdatamodeld in Sources */,
 				082E40DE21664D54005F302D /* AppDelegate.swift in Sources */,
 				08900F51216AB59F00DF6CC1 /* Notify.swift in Sources */,
 				082E41022168F1E1005F302D /* TimeConstants.swift in Sources */,
 				08900F4F2169081100DF6CC1 /* PomodoroTimer.swift in Sources */,
+				08900F57216CE09A00DF6CC1 /* CoreDataManager.swift in Sources */,
+				08900F59216DA83F00DF6CC1 /* UserPreference.swift in Sources */,
 				082E41002167A800005F302D /* CounterContainerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -375,7 +395,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -431,7 +451,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
@@ -554,6 +574,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		08900F53216CDEAF00DF6CC1 /* work.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				08900F54216CDEAF00DF6CC1 /* work.xcdatamodel */,
+			);
+			currentVersion = 08900F54216CDEAF00DF6CC1 /* work.xcdatamodel */;
+			path = work.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 082E40D221664D54005F302D /* Project object */;
 }
