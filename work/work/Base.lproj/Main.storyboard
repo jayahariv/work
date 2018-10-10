@@ -23,7 +23,11 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
-                                        <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW"/>
+                                        <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW">
+                                            <connections>
+                                                <action selector="onPreference:" target="Voe-Tx-rLC" id="rso-Af-9Jn"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
                                         <menuItem title="Services" id="NMo-om-nkz">
                                             <modifierMask key="keyEquivalentModifierMask"/>
@@ -82,7 +86,7 @@
                 <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="205" y="405"/>
+            <point key="canvasLocation" x="176" y="416"/>
         </scene>
         <!--Counter View Controller-->
         <scene sceneID="hIz-AP-VOD">
@@ -137,6 +141,54 @@
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="175" y="583.5"/>
+        </scene>
+        <!--Window Controller-->
+        <scene sceneID="EyQ-Rd-Bo0">
+            <objects>
+                <windowController id="Enu-J9-zTw" sceneMemberID="viewController">
+                    <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="2LK-16-nXI">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="196" y="240" width="480" height="270"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+                        <connections>
+                            <outlet property="delegate" destination="Enu-J9-zTw" id="Z9O-BC-JJE"/>
+                        </connections>
+                    </window>
+                    <connections>
+                        <segue destination="cEg-MX-RPj" kind="relationship" relationship="window.shadowedContentViewController" id="Vmn-cO-ciq"/>
+                    </connections>
+                </windowController>
+                <customObject id="ScG-Fh-DeM" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="210" y="933"/>
+        </scene>
+        <!--Preference View Controller-->
+        <scene sceneID="CVo-Dw-714">
+            <objects>
+                <viewController storyboardIdentifier="PreferenceViewController" id="cEg-MX-RPj" customClass="PreferenceViewController" customModule="work" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="Zwu-Db-0yK">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="jTO-ph-1GX">
+                                <rect key="frame" x="188" y="127" width="104" height="17"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Preference page" id="V4G-yh-y2I">
+                                    <font key="font" usesAppearanceFont="YES"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="jTO-ph-1GX" firstAttribute="centerX" secondItem="Zwu-Db-0yK" secondAttribute="centerX" id="0PR-ws-fJZ"/>
+                            <constraint firstItem="jTO-ph-1GX" firstAttribute="centerY" secondItem="Zwu-Db-0yK" secondAttribute="centerY" id="R1X-aM-y4t"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <customObject id="DX3-le-dhN" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="210" y="1327"/>
         </scene>
     </scenes>
 </document>

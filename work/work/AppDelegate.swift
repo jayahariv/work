@@ -19,10 +19,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     let counterViewController = CounterViewController.freshController()
     private let pomodoroTimer = PomodoroTimer.shared
     private var statusTitleUpdater: Repeater?
+    private var preferenceWindowController: NSWindowController!
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         Notify.shared.initialize()
         initializeCounter()
+        initializePreferenceWindow()
     }
     
     // MARK: Button Actions
@@ -44,8 +46,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         statusItem.button?.title = "~\(pomodoroTimer.minute)"
     }
     
-    // MARK: Helper methods
-    
+    @IBAction func onPreference(_ sender: Any) {
+        openPreferenceViewController()
+    }
+}
+
+// MARK: Pomodoro related
+
+private extension AppDelegate {
     func initializeCounter() {
         if let button = statusItem.button {
             let icon = NSImage(named: NSImage.Name("StatusIcon"))
@@ -99,6 +107,21 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
             }
         }
         statusTitleUpdater?.start()
+    }
+}
+
+// MARK: Preference related helper methods
+private extension AppDelegate {
+    func initializePreferenceWindow() {
+        let storyboard = NSStoryboard(name: "Main",bundle: nil)
+        guard let vc = storyboard.instantiateController(withIdentifier: "PreferenceViewController") as? PreferenceViewController else {
+            fatalError("Preferences window is not in the storyboard")
+        }
+        let myWindow = NSWindow(contentViewController: vc)
+        preferenceWindowController = NSWindowController(window: myWindow)
+    }
+    func openPreferenceViewController() {
+        preferenceWindowController.showWindow(self)
     }
 }
 
