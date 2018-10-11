@@ -17,32 +17,19 @@ final class Notify: NSObject {
     }
     /// PRIVATE
     private static let instance = Notify()
-    private let breakNotification = NSUserNotification()
-    private let workNotification = NSUserNotification()
-    func initialize() {
-        initializeBreakNotification()
-        initializeWorkNotification()
-    }
-    
     func takeBreak() {
+        let breakNotification = NSUserNotification()
+        breakNotification.title = "Break"
+        breakNotification.soundName = NSUserNotificationDefaultSoundName
+        breakNotification.subtitle = "It's time to take a break."
         NSUserNotificationCenter.default.deliver(breakNotification)
     }
     
     func timeToWork() {
-        NSUserNotificationCenter.default.deliver(workNotification)
-    }
-}
-
-private extension Notify {
-    func initializeBreakNotification() {
-        breakNotification.title = "Break"
-        breakNotification.soundName = NSUserNotificationDefaultSoundName
-        breakNotification.subtitle = "It's time to take a break."
-    }
-    
-    func initializeWorkNotification() {
+        let workNotification = NSUserNotification()
         workNotification.title = "Work"
         workNotification.soundName = NSUserNotificationDefaultSoundName
         workNotification.subtitle = "Be focused and time to work."
+        NSUserNotificationCenter.default.deliver(workNotification)
     }
 }

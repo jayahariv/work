@@ -50,6 +50,9 @@ final class PomodoroTimer {
     private var isWorking: Bool = false
     private let coredataManager = CoreDataManager.shared
     
+    private var resignDate: Date?
+    private var resignRemainingSeconds: Int = 0
+    
     /**
      Call this method once for setting up the timer from AppDelegate
      
@@ -58,6 +61,7 @@ final class PomodoroTimer {
         guard timer == nil else {
             return
         }
+        initializeAppNotifications()
         isWorking = true
         remainingSeconds = Constants.Interval.WORK * TimeConstants.MINUTE_IN_SECONDS
         timer = Repeater.every(.seconds(1)) { [weak self] (_) in
@@ -134,5 +138,34 @@ private extension PomodoroTimer {
             print(error)
         }
         return tasks
+    }
+}
+
+extension PomodoroTimer {
+    func initializeAppNotifications() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(applicationWillBecomeActive(_:)),
+                                               name: NSApplication.didBecomeActiveNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(didResignActiveNotification(_:)),
+                                               name: NSApplication.didResignActiveNotification,
+                                               object: nil)
+    }
+    
+    @objc func didResignActiveNotification(_ notification: Notification) {
+        resignDate = Date()
+        resignRemainingSeconds = remainingSeconds
+    }
+    
+    @objc func applicationWillBecomeActive(_ notification: Notification) {
+        if resignDate != nil {
+            let timeSinceResign = NSDate().timeIntervalSince(resignDate!)
+            let stopwatch = Int(timeSinceResign)
+            if resignRemainingSeconds + stopwatch - remainingSeconds > 3 {
+                remainingSeconds -= stopwatch
+            }
+            resignDate = nil
+        }
     }
 }

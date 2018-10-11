@@ -19,10 +19,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     let counterViewController = CounterViewController.freshController()
     private let pomodoroTimer = PomodoroTimer.shared
     private var statusTitleUpdater: Repeater?
-    private var preferenceWindowController: NSWindowController!
+    private var preferenceWindowController: NSWindowController!    
+    
+    // MARK: Application Lifecycle
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        Notify.shared.initialize()
         initializeCounter()
         initializePreferenceWindow()
     }
