@@ -19,22 +19,25 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     let counterViewController = CounterViewController.freshController()
     private let pomodoroTimer = PomodoroTimer.shared
     private var statusTitleUpdater: Repeater?
-    private var preferenceWindowController: NSWindowController!    
+    private var preferenceWindowController: NSWindowController!
+    private var eventMonitor: EventMonitor?
+
     
     // MARK: Application Lifecycle
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         initializeCounter()
         initializePreferenceWindow()
+        initializeEventMonitor()
     }
     
     // MARK: Button Actions
     
     @IBAction func togglePopover(_ sender: Any?) {
         if popover.isShown {
-            closePopover(sender: sender)
+            closePopover(sender)
         } else {
-            showPopover(sender: sender)
+            showPopover(sender)
         }
     }
     
@@ -72,14 +75,24 @@ private extension AppDelegate {
                                                object: nil)
     }
     
-    func showPopover(sender: Any?) {
+    func initializeEventMonitor() {
+        eventMonitor = EventMonitor(mask: [.leftMouseDown, .rightMouseDown]) { [weak self] event in
+            if let self = self, self.popover.isShown {
+                self.closePopover(event)
+            }
+        }
+    }
+    
+    func showPopover(_ sender: Any?) {
         if let button = statusItem.button {
+            eventMonitor?.start()
             popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
         }
     }
     
-    func closePopover(sender: Any?) {
+    func closePopover(_ sender: Any?) {
         popover.performClose(sender)
+        eventMonitor?.stop()
     }
     
     @objc func updateStatusTitle() {

@@ -20,6 +20,7 @@
 		08900F57216CE09A00DF6CC1 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08900F56216CE09A00DF6CC1 /* CoreDataManager.swift */; };
 		08900F59216DA83F00DF6CC1 /* UserPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08900F58216DA83F00DF6CC1 /* UserPreference.swift */; };
 		08900F5B216E3D7200DF6CC1 /* PreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08900F5A216E3D7200DF6CC1 /* PreferenceViewController.swift */; };
+		08B31A1A21724554002D380C /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B31A1921724554002D380C /* EventMonitor.swift */; };
 		E27DA7E47F19DDF8D31679A1 /* Pods_work.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2BABD7A8CE4E34473571E43 /* Pods_work.framework */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +54,7 @@
 		08900F56216CE09A00DF6CC1 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		08900F58216DA83F00DF6CC1 /* UserPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreference.swift; sourceTree = "<group>"; };
 		08900F5A216E3D7200DF6CC1 /* PreferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceViewController.swift; sourceTree = "<group>"; };
+		08B31A1921724554002D380C /* EventMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventMonitor.swift; sourceTree = "<group>"; };
 		4BF4DF5623CA742628D60782 /* Pods-work.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-work.release.xcconfig"; path = "Target Support Files/Pods-work/Pods-work.release.xcconfig"; sourceTree = "<group>"; };
 		E2BABD7A8CE4E34473571E43 /* Pods_work.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_work.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -112,6 +114,7 @@
 				08900F50216AB59F00DF6CC1 /* Notify.swift */,
 				08900F58216DA83F00DF6CC1 /* UserPreference.swift */,
 				08900F5A216E3D7200DF6CC1 /* PreferenceViewController.swift */,
+				08B31A1921724554002D380C /* EventMonitor.swift */,
 			);
 			path = work;
 			sourceTree = "<group>";
@@ -308,6 +311,7 @@
 				082E40E021664D54005F302D /* CounterViewController.swift in Sources */,
 				08900F55216CDEAF00DF6CC1 /* work.xcdatamodeld in Sources */,
 				082E40DE21664D54005F302D /* AppDelegate.swift in Sources */,
+				08B31A1A21724554002D380C /* EventMonitor.swift in Sources */,
 				08900F51216AB59F00DF6CC1 /* Notify.swift in Sources */,
 				082E41022168F1E1005F302D /* TimeConstants.swift in Sources */,
 				08900F5B216E3D7200DF6CC1 /* PreferenceViewController.swift in Sources */,

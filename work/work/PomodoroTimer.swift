@@ -161,7 +161,7 @@ extension PomodoroTimer {
     }
     
     @objc func onWakeNote(note: NSNotification) {
-        if resignDate != nil {
+        if resignDate != nil && timer?.state ?? .finished == .executing {
             let timeSinceResign = NSDate().timeIntervalSince(resignDate!)
             let stopwatch = Int(timeSinceResign)
             if resignRemainingSeconds + stopwatch - remainingSeconds > 3 {
