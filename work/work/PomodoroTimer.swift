@@ -143,22 +143,24 @@ private extension PomodoroTimer {
 
 extension PomodoroTimer {
     func initializeAppNotifications() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(applicationWillBecomeActive(_:)),
-                                               name: NSApplication.didBecomeActiveNotification,
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(didResignActiveNotification(_:)),
-                                               name: NSApplication.didResignActiveNotification,
-                                               object: nil)
+        NSWorkspace
+            .shared
+            .notificationCenter
+            .addObserver(self,
+                         selector: #selector(onWakeNote(note:)),
+                         name: NSWorkspace.didWakeNotification,
+                         object: nil)
+        
+        NSWorkspace
+            .shared
+            .notificationCenter
+            .addObserver(self,
+                         selector: #selector(onSleepNote(note:)),
+                         name: NSWorkspace.willSleepNotification,
+                         object: nil)
     }
     
-    @objc func didResignActiveNotification(_ notification: Notification) {
-        resignDate = Date()
-        resignRemainingSeconds = remainingSeconds
-    }
-    
-    @objc func applicationWillBecomeActive(_ notification: Notification) {
+    @objc func onWakeNote(note: NSNotification) {
         if resignDate != nil {
             let timeSinceResign = NSDate().timeIntervalSince(resignDate!)
             let stopwatch = Int(timeSinceResign)
@@ -167,5 +169,10 @@ extension PomodoroTimer {
             }
             resignDate = nil
         }
+    }
+    
+    @objc func onSleepNote(note: NSNotification) {
+        resignDate = Date()
+        resignRemainingSeconds = remainingSeconds
     }
 }
