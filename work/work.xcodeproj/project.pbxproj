@@ -101,20 +101,16 @@
 		082E40DC21664D54005F302D /* work */ = {
 			isa = PBXGroup;
 			children = (
+				08B31A1B2172472A002D380C /* helper */,
 				08900F52216CDE9D00DF6CC1 /* coredata */,
 				082E40DD21664D54005F302D /* AppDelegate.swift */,
 				082E40DF21664D54005F302D /* CounterViewController.swift */,
 				082E40FF2167A800005F302D /* CounterContainerView.swift */,
+				08900F5A216E3D7200DF6CC1 /* PreferenceViewController.swift */,
 				082E40E121664D54005F302D /* Assets.xcassets */,
 				082E40E321664D54005F302D /* Main.storyboard */,
 				082E40E621664D54005F302D /* Info.plist */,
 				082E40E721664D54005F302D /* work.entitlements */,
-				082E41012168F1E1005F302D /* TimeConstants.swift */,
-				08900F4E2169081100DF6CC1 /* PomodoroTimer.swift */,
-				08900F50216AB59F00DF6CC1 /* Notify.swift */,
-				08900F58216DA83F00DF6CC1 /* UserPreference.swift */,
-				08900F5A216E3D7200DF6CC1 /* PreferenceViewController.swift */,
-				08B31A1921724554002D380C /* EventMonitor.swift */,
 			);
 			path = work;
 			sourceTree = "<group>";
@@ -135,6 +131,18 @@
 				08900F56216CE09A00DF6CC1 /* CoreDataManager.swift */,
 			);
 			path = coredata;
+			sourceTree = "<group>";
+		};
+		08B31A1B2172472A002D380C /* helper */ = {
+			isa = PBXGroup;
+			children = (
+				082E41012168F1E1005F302D /* TimeConstants.swift */,
+				08900F4E2169081100DF6CC1 /* PomodoroTimer.swift */,
+				08900F50216AB59F00DF6CC1 /* Notify.swift */,
+				08900F58216DA83F00DF6CC1 /* UserPreference.swift */,
+				08B31A1921724554002D380C /* EventMonitor.swift */,
+			);
+			path = helper;
 			sourceTree = "<group>";
 		};
 		708643035B06ECFD013655E6 /* Pods */ = {
