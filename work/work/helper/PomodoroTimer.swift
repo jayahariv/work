@@ -38,9 +38,11 @@ final class PomodoroTimer {
             static let FINISH = "NOTIFICATION_FINISH_NAME"
         }
         struct Interval {
-            static let WORK = 25
-            static let SHORT_BREAK = 5
-            static let LONG_BREAK = 15
+            static let WORK_DURATION = 25
+            static let SHORT_BREAK_DURATION = 5
+            static let LONG_BREAK_DURATION = 15
+            static let LONG_BREAK_AFTER = 4
+            static let DAILY_TARGET = 8
         }
     }
     /// PRIVATE
@@ -63,7 +65,7 @@ final class PomodoroTimer {
         }
         initializeAppNotifications()
         isWorking = true
-        remainingSeconds = Constants.Interval.WORK * TimeConstants.MINUTE_IN_SECONDS
+        remainingSeconds = Constants.Interval.WORK_DURATION * TimeConstants.MINUTE_IN_SECONDS
         timer = Repeater.every(.seconds(1)) { [weak self] (_) in
             guard let self = self else {
                 return
@@ -97,10 +99,11 @@ final class PomodoroTimer {
         }
         
         if isWorking {
-            // nocommit
-            remainingSeconds = Constants.Interval.SHORT_BREAK * TimeConstants.MINUTE_IN_SECONDS
+            let nextIntervalInMinutes =
+                todaysFinishedTaskCount % Constants.Interval.LONG_BREAK_AFTER == 0 ? Constants.Interval.LONG_BREAK_DURATION : Constants.Interval.SHORT_BREAK_DURATION
+            remainingSeconds = nextIntervalInMinutes * TimeConstants.MINUTE_IN_SECONDS
         } else {
-            remainingSeconds = Constants.Interval.WORK * TimeConstants.MINUTE_IN_SECONDS
+            remainingSeconds = Constants.Interval.WORK_DURATION * TimeConstants.MINUTE_IN_SECONDS
         }
         isWorking.toggle()
     }
@@ -110,7 +113,11 @@ private extension PomodoroTimer {
     func finishTimer() {
         if isWorking {
             saveInterval()
-            Notify.shared.takeBreak()
+            if todaysFinishedTaskCount == Constants.Interval.DAILY_TARGET {
+                Notify.shared.dailyTargetAchieved()
+            } else {
+                Notify.shared.takeBreak()
+            }
         } else {
             Notify.shared.timeToWork()
         }
@@ -149,14 +156,14 @@ extension PomodoroTimer {
             .notificationCenter
             .addObserver(self,
                          selector: #selector(onSleepNote(note:)),
-                         name: NSWorkspace.willSleepNotification,
+                         name: NSWorkspace.screensDidSleepNotification,
                          object: nil)
         NSWorkspace
             .shared
             .notificationCenter
             .addObserver(self,
                          selector: #selector(onWakeNote(note:)),
-                         name: NSWorkspace.didWakeNotification,
+                         name: NSWorkspace.screensDidWakeNotification,
                          object: nil)
     }
     
@@ -174,6 +181,7 @@ extension PomodoroTimer {
             let timeSinceResign = NSDate().timeIntervalSince(resignDate!)
             let stopwatch = Int(timeSinceResign)
             remainingSeconds = resignRemainingSeconds - stopwatch
+            print("resignRemainingSeconds: \(resignRemainingSeconds); stopwatch; \(stopwatch); remainingSeconds: \(remainingSeconds)")
             resignDate = nil
         }
     }

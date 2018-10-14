@@ -32,4 +32,12 @@ final class Notify: NSObject {
         workNotification.subtitle = "Be focused and time to work."
         NSUserNotificationCenter.default.deliver(workNotification)
     }
+    
+    func dailyTargetAchieved() {
+        let targetNotification = NSUserNotification()
+        targetNotification.title = "Daily target achieved"
+        targetNotification.soundName = NSUserNotificationDefaultSoundName
+        targetNotification.subtitle = "Congrats! You have achieved your daily target."
+        NSUserNotificationCenter.default.deliver(targetNotification)
+    }
 }
