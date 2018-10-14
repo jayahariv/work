@@ -143,6 +143,14 @@ private extension PomodoroTimer {
 
 extension PomodoroTimer {
     func initializeAppNotifications() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(onAppResignActive),
+                                               name: NSApplication.willResignActiveNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(onAppBecomeActive),
+                                               name: NSApplication.willBecomeActiveNotification,
+                                               object: nil)
         NSWorkspace
             .shared
             .notificationCenter
@@ -150,17 +158,22 @@ extension PomodoroTimer {
                          selector: #selector(onWakeNote(note:)),
                          name: NSWorkspace.didWakeNotification,
                          object: nil)
-        
-        NSWorkspace
-            .shared
-            .notificationCenter
-            .addObserver(self,
-                         selector: #selector(onSleepNote(note:)),
-                         name: NSWorkspace.willSleepNotification,
-                         object: nil)
+    }
+    
+    @objc func onAppResignActive() {
+        resignDate = Date()
+        resignRemainingSeconds = remainingSeconds
+    }
+    
+    @objc func onAppBecomeActive() {
+        correctResignTime()
     }
     
     @objc func onWakeNote(note: NSNotification) {
+        correctResignTime()
+    }
+    
+    func correctResignTime() {
         if resignDate != nil && timer?.state ?? .finished == .executing {
             let timeSinceResign = NSDate().timeIntervalSince(resignDate!)
             let stopwatch = Int(timeSinceResign)
@@ -169,10 +182,5 @@ extension PomodoroTimer {
             }
             resignDate = nil
         }
-    }
-    
-    @objc func onSleepNote(note: NSNotification) {
-        resignDate = Date()
-        resignRemainingSeconds = remainingSeconds
     }
 }
