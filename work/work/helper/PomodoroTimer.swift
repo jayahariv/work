@@ -97,6 +97,7 @@ final class PomodoroTimer {
         }
         
         if isWorking {
+            // nocommit
             remainingSeconds = Constants.Interval.SHORT_BREAK * TimeConstants.MINUTE_IN_SECONDS
         } else {
             remainingSeconds = Constants.Interval.WORK * TimeConstants.MINUTE_IN_SECONDS
@@ -143,14 +144,13 @@ private extension PomodoroTimer {
 
 extension PomodoroTimer {
     func initializeAppNotifications() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(onAppResignActive),
-                                               name: NSApplication.willResignActiveNotification,
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(onAppBecomeActive),
-                                               name: NSApplication.willBecomeActiveNotification,
-                                               object: nil)
+        NSWorkspace
+            .shared
+            .notificationCenter
+            .addObserver(self,
+                         selector: #selector(onSleepNote(note:)),
+                         name: NSWorkspace.willSleepNotification,
+                         object: nil)
         NSWorkspace
             .shared
             .notificationCenter
@@ -160,26 +160,20 @@ extension PomodoroTimer {
                          object: nil)
     }
     
-    @objc func onAppResignActive() {
-        resignDate = Date()
-        resignRemainingSeconds = remainingSeconds
-    }
-    
-    @objc func onAppBecomeActive() {
-        correctResignTime()
-    }
-    
     @objc func onWakeNote(note: NSNotification) {
         correctResignTime()
+    }
+    
+    @objc func onSleepNote(note: NSNotification) {
+        resignDate = Date()
+        resignRemainingSeconds = remainingSeconds
     }
     
     func correctResignTime() {
         if resignDate != nil && timer?.state ?? .finished == .executing {
             let timeSinceResign = NSDate().timeIntervalSince(resignDate!)
             let stopwatch = Int(timeSinceResign)
-            if resignRemainingSeconds + stopwatch - remainingSeconds > 3 {
-                remainingSeconds -= stopwatch
-            }
+            remainingSeconds = resignRemainingSeconds - stopwatch
             resignDate = nil
         }
     }
