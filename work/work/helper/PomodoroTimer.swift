@@ -37,13 +37,6 @@ final class PomodoroTimer {
             static let TOGGLE = "NOTIFICATION_TOGGLE_NAME"
             static let FINISH = "NOTIFICATION_FINISH_NAME"
         }
-        struct Interval {
-            static let WORK_DURATION = 25
-            static let SHORT_BREAK_DURATION = 5
-            static let LONG_BREAK_DURATION = 15
-            static let LONG_BREAK_AFTER = 4
-            static let DAILY_TARGET = 8
-        }
     }
     /// PRIVATE
     private static let instance = PomodoroTimer()
@@ -65,7 +58,7 @@ final class PomodoroTimer {
         }
         initializeAppNotifications()
         isWorking = true
-        remainingSeconds = Constants.Interval.WORK_DURATION * TimeConstants.MINUTE_IN_SECONDS
+        remainingSeconds = UserPreference.shared.workDuration * TimeConstants.MINUTE_IN_SECONDS
         timer = Repeater.every(.seconds(1)) { [weak self] (_) in
             guard let self = self else {
                 return
@@ -100,10 +93,10 @@ final class PomodoroTimer {
         
         if isWorking {
             let nextIntervalInMinutes =
-                todaysFinishedTaskCount % Constants.Interval.LONG_BREAK_AFTER == 0 ? Constants.Interval.LONG_BREAK_DURATION : Constants.Interval.SHORT_BREAK_DURATION
+                todaysFinishedTaskCount % UserPreference.shared.longBreakAfter == 0 ? UserPreference.shared.longBreakDuration : UserPreference.shared.shortBreakDuration
             remainingSeconds = nextIntervalInMinutes * TimeConstants.MINUTE_IN_SECONDS
         } else {
-            remainingSeconds = Constants.Interval.WORK_DURATION * TimeConstants.MINUTE_IN_SECONDS
+            remainingSeconds = UserPreference.shared.workDuration * TimeConstants.MINUTE_IN_SECONDS
         }
         isWorking.toggle()
     }
@@ -113,7 +106,7 @@ private extension PomodoroTimer {
     func finishTimer() {
         if isWorking {
             saveInterval()
-            if todaysFinishedTaskCount == Constants.Interval.DAILY_TARGET {
+            if todaysFinishedTaskCount == UserPreference.shared.dailyWorkTarget {
                 Notify.shared.dailyTargetAchieved()
             } else {
                 Notify.shared.takeBreak()

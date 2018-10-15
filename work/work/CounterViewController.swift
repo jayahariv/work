@@ -30,7 +30,7 @@ final class CounterViewController: NSViewController {
     override func viewWillAppear() {
         super.viewWillAppear()
         countersubheading?.stringValue =
-            "\(pomodoroTimer.todaysFinishedTaskCount)/\(UserPreference.shared.targetTaskCount)"
+            "\(pomodoroTimer.todaysFinishedTaskCount)/\(UserPreference.shared.dailyWorkTarget)"
     }
     
     // MARK: Button Actions
