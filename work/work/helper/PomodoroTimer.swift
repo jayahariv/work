@@ -92,8 +92,13 @@ final class PomodoroTimer {
         }
         
         if isWorking {
+            let eligibleForLongBreak =
+                todaysFinishedTaskCount != 0 &&
+                    todaysFinishedTaskCount % UserPreference.shared.longBreakAfter == 0
             let nextIntervalInMinutes =
-                todaysFinishedTaskCount % UserPreference.shared.longBreakAfter == 0 ? UserPreference.shared.longBreakDuration : UserPreference.shared.shortBreakDuration
+                eligibleForLongBreak
+                    ? UserPreference.shared.longBreakDuration
+                    : UserPreference.shared.shortBreakDuration
             remainingSeconds = nextIntervalInMinutes * TimeConstants.MINUTE_IN_SECONDS
         } else {
             remainingSeconds = UserPreference.shared.workDuration * TimeConstants.MINUTE_IN_SECONDS
