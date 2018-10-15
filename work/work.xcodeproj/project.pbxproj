@@ -15,6 +15,8 @@
 		082E41002167A800005F302D /* CounterContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082E40FF2167A800005F302D /* CounterContainerView.swift */; };
 		082E41022168F1E1005F302D /* TimeConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082E41012168F1E1005F302D /* TimeConstants.swift */; };
 		088D6BEE21742A4F00046A28 /* PomodoroPreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088D6BED21742A4F00046A28 /* PomodoroPreferenceViewController.swift */; };
+		088D6BF12174CF0600046A28 /* Notes.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 088D6BF02174CF0600046A28 /* Notes.storyboard */; };
+		088D6BF32174CF2400046A28 /* NotesHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088D6BF22174CF2400046A28 /* NotesHomeViewController.swift */; };
 		08900F4F2169081100DF6CC1 /* PomodoroTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08900F4E2169081100DF6CC1 /* PomodoroTimer.swift */; };
 		08900F51216AB59F00DF6CC1 /* Notify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08900F50216AB59F00DF6CC1 /* Notify.swift */; };
 		08900F55216CDEAF00DF6CC1 /* work.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 08900F53216CDEAF00DF6CC1 /* work.xcdatamodeld */; };
@@ -50,6 +52,8 @@
 		082E40FF2167A800005F302D /* CounterContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterContainerView.swift; sourceTree = "<group>"; };
 		082E41012168F1E1005F302D /* TimeConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeConstants.swift; sourceTree = "<group>"; };
 		088D6BED21742A4F00046A28 /* PomodoroPreferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroPreferenceViewController.swift; sourceTree = "<group>"; };
+		088D6BF02174CF0600046A28 /* Notes.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Notes.storyboard; sourceTree = "<group>"; };
+		088D6BF22174CF2400046A28 /* NotesHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesHomeViewController.swift; sourceTree = "<group>"; };
 		08900F4E2169081100DF6CC1 /* PomodoroTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroTimer.swift; sourceTree = "<group>"; };
 		08900F50216AB59F00DF6CC1 /* Notify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notify.swift; sourceTree = "<group>"; };
 		08900F54216CDEAF00DF6CC1 /* work.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = work.xcdatamodel; sourceTree = "<group>"; };
@@ -103,6 +107,7 @@
 		082E40DC21664D54005F302D /* work */ = {
 			isa = PBXGroup;
 			children = (
+				088D6BEF2174CEDE00046A28 /* notes */,
 				088D6BE821742A0600046A28 /* preferences */,
 				08B31A1B2172472A002D380C /* helper */,
 				08900F52216CDE9D00DF6CC1 /* coredata */,
@@ -133,6 +138,15 @@
 				088D6BED21742A4F00046A28 /* PomodoroPreferenceViewController.swift */,
 			);
 			path = preferences;
+			sourceTree = "<group>";
+		};
+		088D6BEF2174CEDE00046A28 /* notes */ = {
+			isa = PBXGroup;
+			children = (
+				088D6BF22174CF2400046A28 /* NotesHomeViewController.swift */,
+				088D6BF02174CF0600046A28 /* Notes.storyboard */,
+			);
+			path = notes;
 			sourceTree = "<group>";
 		};
 		08900F52216CDE9D00DF6CC1 /* coredata */ = {
@@ -261,6 +275,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				088D6BF12174CF0600046A28 /* Notes.storyboard in Resources */,
 				082E40E221664D54005F302D /* Assets.xcassets in Resources */,
 				082E40E521664D54005F302D /* Main.storyboard in Resources */,
 			);
@@ -329,6 +344,7 @@
 			files = (
 				082E40E021664D54005F302D /* CounterViewController.swift in Sources */,
 				08900F55216CDEAF00DF6CC1 /* work.xcdatamodeld in Sources */,
+				088D6BF32174CF2400046A28 /* NotesHomeViewController.swift in Sources */,
 				088D6BEE21742A4F00046A28 /* PomodoroPreferenceViewController.swift in Sources */,
 				082E40DE21664D54005F302D /* AppDelegate.swift in Sources */,
 				08B31A1A21724554002D380C /* EventMonitor.swift in Sources */,

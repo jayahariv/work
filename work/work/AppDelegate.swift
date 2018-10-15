@@ -21,14 +21,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     private var statusTitleUpdater: Repeater?
     private var preferenceWindowController: NSWindowController!
     private var eventMonitor: EventMonitor?
+    private var notesWindowController: NSWindowController!
 
     
     // MARK: Application Lifecycle
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
+        initializeEventMonitor()
         initializeCounter()
         initializePreferenceWindow()
-        initializeEventMonitor()
+        initializeNotesWindow()
     }
     
     // MARK: Button Actions
@@ -52,6 +54,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     
     @IBAction func onPreference(_ sender: Any) {
         openPreferenceViewController()
+    }
+    
+    @IBAction func onNotes(_ sender: Any) {
+        toggleNotesViewController()
     }
 }
 
@@ -128,7 +134,12 @@ private extension AppDelegate {
 private extension AppDelegate {
     func initializePreferenceWindow() {
         let storyboard = NSStoryboard(name: "Main",bundle: nil)
-        guard let vc = storyboard.instantiateController(withIdentifier: "PreferenceViewController") as? PreferenceViewController else {
+        guard
+            let vc =
+                storyboard
+                    .instantiateController(withIdentifier: "PreferenceViewController")
+                        as? PreferenceViewController
+        else {
             fatalError("Preferences window is not in the storyboard")
         }
         let myWindow = NSWindow(contentViewController: vc)
@@ -136,6 +147,29 @@ private extension AppDelegate {
     }
     func openPreferenceViewController() {
         preferenceWindowController.showWindow(self)
+    }
+}
+
+private extension AppDelegate {
+    func initializeNotesWindow() {
+        let storyboard = NSStoryboard(name: "Notes",bundle: nil)
+        guard
+            let vc =
+                storyboard
+                    .instantiateController(withIdentifier: "NotesHomeViewController")
+                        as? NotesHomeViewController
+            else {
+            fatalError("NotesHomeViewController is not in the storyboard")
+        }
+        let myWindow = NSWindow(contentViewController: vc)
+        notesWindowController = NSWindowController(window: myWindow)
+    }
+    func toggleNotesViewController() {
+        if notesWindowController.window?.isVisible ?? false {
+            notesWindowController.window?.close()
+        } else {
+            notesWindowController.showWindow(self)
+        }
     }
 }
 
