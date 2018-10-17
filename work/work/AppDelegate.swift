@@ -103,7 +103,7 @@ private extension AppDelegate {
     
     @objc func updateStatusTitle() {
         if statusTitleUpdater == nil {
-            statusItem.button?.title = "~25"
+            statusItem.button?.title = "~"
             setupStatusTitle()
         }
         
@@ -143,6 +143,7 @@ private extension AppDelegate {
             fatalError("Preferences window is not in the storyboard")
         }
         let myWindow = NSWindow(contentViewController: vc)
+        myWindow.styleMask = [.titled, .closable ]
         preferenceWindowController = NSWindowController(window: myWindow)
     }
     func openPreferenceViewController() {

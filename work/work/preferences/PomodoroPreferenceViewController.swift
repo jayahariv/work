@@ -16,6 +16,7 @@ final class PomodoroPreferenceViewController: NSViewController {
     @IBOutlet private weak var shortIntervalTextField: NSTextField!
     @IBOutlet private weak var longIntervalTextField: NSTextField!
     @IBOutlet private weak var longIntervalAfterTextField: NSTextField!
+    private var categories: [String] = ["Other"]
 
     // MARK: View lifecycle
     
@@ -28,7 +29,6 @@ final class PomodoroPreferenceViewController: NSViewController {
         super.viewWillDisappear()
         savePreferences()
     }
-    
 }
 
 private extension PomodoroPreferenceViewController {
@@ -67,4 +67,31 @@ private extension PomodoroPreferenceViewController {
             UserPreference.shared.saveLongBreakAfter(longIntervalAfterInt)
         }
     }
+}
+
+extension PomodoroPreferenceViewController: NSOutlineViewDataSource, NSOutlineViewDelegate {
+    func outlineView(_ outlineView: NSOutlineView, numberOfChildrenOfItem item: Any?) -> Int {
+        return categories.count
+    }
+    
+    func outlineView(_ outlineView: NSOutlineView, child index: Int, ofItem item: Any?) -> Any {
+        return categories[index]
+    }
+    
+    func outlineView(_ outlineView: NSOutlineView, isItemExpandable item: Any) -> Bool {
+        return false
+    }
+    
+    func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
+        
+        let v =
+            outlineView
+                .makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "DataCell"),
+                          owner: self) as! NSTableCellView
+        if let tf = v.textField {
+            tf.stringValue = item as! String
+        }
+        return v
+    }
+
 }

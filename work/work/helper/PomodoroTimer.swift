@@ -181,6 +181,10 @@ extension PomodoroTimer {
             remainingSeconds = resignRemainingSeconds - stopwatch
             print("resignRemainingSeconds: \(resignRemainingSeconds); stopwatch; \(stopwatch); remainingSeconds: \(remainingSeconds)")
             resignDate = nil
+        } else if !isWorking {
+            skip()
+            NotificationCenter.default.post(name: Notification.Name(PomodoroTimer.Constants.NotificationName.TOGGLE),
+                                            object: nil)
         }
     }
 }
