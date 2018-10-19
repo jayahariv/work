@@ -17,6 +17,7 @@
 		088D6BEE21742A4F00046A28 /* PomodoroPreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088D6BED21742A4F00046A28 /* PomodoroPreferenceViewController.swift */; };
 		088D6BF12174CF0600046A28 /* Notes.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 088D6BF02174CF0600046A28 /* Notes.storyboard */; };
 		088D6BF32174CF2400046A28 /* NotesHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088D6BF22174CF2400046A28 /* NotesHomeViewController.swift */; };
+		088D6C2B217A0CD300046A28 /* Preferences.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 088D6C2A217A0CD300046A28 /* Preferences.storyboard */; };
 		08900F4F2169081100DF6CC1 /* PomodoroTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08900F4E2169081100DF6CC1 /* PomodoroTimer.swift */; };
 		08900F51216AB59F00DF6CC1 /* Notify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08900F50216AB59F00DF6CC1 /* Notify.swift */; };
 		08900F55216CDEAF00DF6CC1 /* work.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 08900F53216CDEAF00DF6CC1 /* work.xcdatamodeld */; };
@@ -54,6 +55,7 @@
 		088D6BED21742A4F00046A28 /* PomodoroPreferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroPreferenceViewController.swift; sourceTree = "<group>"; };
 		088D6BF02174CF0600046A28 /* Notes.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Notes.storyboard; sourceTree = "<group>"; };
 		088D6BF22174CF2400046A28 /* NotesHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesHomeViewController.swift; sourceTree = "<group>"; };
+		088D6C2A217A0CD300046A28 /* Preferences.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Preferences.storyboard; sourceTree = "<group>"; };
 		08900F4E2169081100DF6CC1 /* PomodoroTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroTimer.swift; sourceTree = "<group>"; };
 		08900F50216AB59F00DF6CC1 /* Notify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notify.swift; sourceTree = "<group>"; };
 		08900F54216CDEAF00DF6CC1 /* work.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = work.xcdatamodel; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 			children = (
 				08900F5A216E3D7200DF6CC1 /* PreferenceViewController.swift */,
 				088D6BED21742A4F00046A28 /* PomodoroPreferenceViewController.swift */,
+				088D6C2A217A0CD300046A28 /* Preferences.storyboard */,
 			);
 			path = preferences;
 			sourceTree = "<group>";
@@ -278,6 +281,7 @@
 				088D6BF12174CF0600046A28 /* Notes.storyboard in Resources */,
 				082E40E221664D54005F302D /* Assets.xcassets in Resources */,
 				082E40E521664D54005F302D /* Main.storyboard in Resources */,
+				088D6C2B217A0CD300046A28 /* Preferences.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

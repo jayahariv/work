@@ -133,7 +133,7 @@ private extension AppDelegate {
 // MARK: Preference related helper methods
 private extension AppDelegate {
     func initializePreferenceWindow() {
-        let storyboard = NSStoryboard(name: "Main",bundle: nil)
+        let storyboard = NSStoryboard(name: "Preferences",bundle: nil)
         guard
             let vc =
                 storyboard

@@ -16,6 +16,7 @@ final class NotesHomeViewController: NSViewController {
     ///PRIVATE
     @IBOutlet private weak var textView: NSTextView!
     private let coredataManager = CoreDataManager.shared
+    private var note: Note?
     private struct C {
         static let TITLE = "Logs"
     }
@@ -23,6 +24,7 @@ final class NotesHomeViewController: NSViewController {
     // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadContent()
         initializeUI()
     }
     
@@ -34,6 +36,7 @@ final class NotesHomeViewController: NSViewController {
 private extension NotesHomeViewController {
     func initializeUI() {
         title = C.TITLE
+        textView.string = note?.content ?? ""
     }
     
     func loadContent() {
@@ -43,13 +46,11 @@ private extension NotesHomeViewController {
         
         let fetchRequest: NSFetchRequest<Note> = Note.fetchRequest()
         fetchRequest.predicate =  NSPredicate(format: "date > %@", dateFrom as NSDate)
-        var note: Note?
         do {
             note = try coredataManager.viewContext.fetch(fetchRequest).first
         } catch {
             print(error)
         }
-        textView.string = note?.content ?? ""
     }
     
     func save() {
@@ -57,9 +58,12 @@ private extension NotesHomeViewController {
         guard !content.isEmpty else {
             return
         }
-        let note = Note(context: coredataManager.viewContext)
-        note.date = Date()
-        note.content = content
+        if note == nil  {
+            note = Note(context: coredataManager.viewContext)
+            note?.date = Date()
+        }
+        
+        note?.content = content
         coredataManager.saveContext()
     }
 }
