@@ -16,18 +16,34 @@ final class PomodoroPreferenceViewController: NSViewController {
     @IBOutlet private weak var shortIntervalTextField: NSTextField!
     @IBOutlet private weak var longIntervalTextField: NSTextField!
     @IBOutlet private weak var longIntervalAfterTextField: NSTextField!
-    private var categories: [String] = ["Other"]
+    @IBOutlet private weak var outlineView: NSOutlineView!
+    private var categories = [TaskCategory]()
+    private var selectedCategory: TaskCategory?
+    private let coredataManager = CoreDataManager.shared
 
     // MARK: View lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadCategories()
         fillDefaultValues()
+    }
+    
+    override func viewWillAppear() {
+        super.viewWillAppear()
     }
     
     override func viewWillDisappear() {
         super.viewWillDisappear()
         savePreferences()
+    }
+    
+    @IBAction func onAddCategory(_ sender: Any) {
+        showCategoryAddAlert()
+    }
+    
+    @IBAction func onRemoveCategory(_ sender: Any) {
+        // todo: implement
     }
 }
 
@@ -67,6 +83,44 @@ private extension PomodoroPreferenceViewController {
             UserPreference.shared.saveLongBreakAfter(longIntervalAfterInt)
         }
     }
+    
+    func loadCategories() {
+        let fetchRequest: NSFetchRequest<TaskCategory> = TaskCategory.fetchRequest()
+        do {
+            categories = try coredataManager.viewContext.fetch(fetchRequest)
+        } catch {
+            print(error)
+        }
+        outlineView.reloadData()
+    }
+    
+    func showCategoryAddAlert() {
+        let delegate = NSApplication.shared.delegate as! AppDelegate
+        guard let window = delegate.preferenceWindowController.window else {
+            fatalError()
+        }
+        
+        let alert = NSAlert()
+        alert.messageText = "Add Custom Category"
+        alert.alertStyle = .warning
+        let categoryNameTextField = NSTextField(frame: NSRect(x: 0, y: 0, width: 200, height: 24))
+        categoryNameTextField.placeholderString = "Enter your category name"
+        alert.accessoryView = categoryNameTextField
+        alert.addButton(withTitle: "OK")
+        alert.addButton(withTitle: "Cancel")
+        alert.beginSheetModal(for: window, completionHandler: { [weak self] (modalResponse) -> Void in
+            let categoryName = categoryNameTextField.stringValue
+            guard let self = self, !categoryName.isEmpty else {
+                return
+            }
+            
+            if modalResponse == .alertFirstButtonReturn {
+                let taskCategory = TaskCategory(context: self.coredataManager.viewContext)
+                taskCategory.name = categoryName
+                self.coredataManager.saveContext()
+            }
+        })
+    }
 }
 
 extension PomodoroPreferenceViewController: NSOutlineViewDataSource, NSOutlineViewDelegate {
@@ -83,15 +137,19 @@ extension PomodoroPreferenceViewController: NSOutlineViewDataSource, NSOutlineVi
     }
     
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
-        
         let v =
             outlineView
                 .makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "DataCell"),
                           owner: self) as! NSTableCellView
         if let tf = v.textField {
-            tf.stringValue = item as! String
+            let taskCategory = item as! TaskCategory
+            tf.stringValue = taskCategory.name ?? "--"
         }
         return v
     }
-
+    
+    func outlineView(_ outlineView: NSOutlineView, shouldSelectItem item: Any) -> Bool {
+        selectedCategory = item as! TaskCategory
+        return true
+    }
 }

@@ -19,9 +19,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     let counterViewController = CounterViewController.freshController()
     private let pomodoroTimer = PomodoroTimer.shared
     private var statusTitleUpdater: Repeater?
-    private var preferenceWindowController: NSWindowController!
+    var preferenceWindowController: NSWindowController!
     private var eventMonitor: EventMonitor?
-    private var notesWindowController: NSWindowController!
+    var notesWindowController: NSWindowController!
 
     
     // MARK: Application Lifecycle

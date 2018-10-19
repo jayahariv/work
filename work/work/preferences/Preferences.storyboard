@@ -161,6 +161,9 @@
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
+                                            <connections>
+                                                <action selector="onAddCategory:" target="pus-wT-0co" id="Xgf-8P-T9s"/>
+                                            </connections>
                                         </button>
                                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bwP-fm-RfT">
                                             <rect key="frame" x="21" y="-1" width="17" height="22"/>
@@ -172,6 +175,9 @@
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
+                                            <connections>
+                                                <action selector="onRemoveCategory:" target="pus-wT-0co" id="i9v-3G-6At"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <constraints>
@@ -381,6 +387,7 @@
                         <outlet property="dailyTargetTextField" destination="laM-Ax-Mmk" id="QVs-IZ-EQA"/>
                         <outlet property="longIntervalAfterTextField" destination="22E-QG-OiI" id="CmK-BP-MRf"/>
                         <outlet property="longIntervalTextField" destination="Zqz-KF-2uw" id="lQj-cB-Osk"/>
+                        <outlet property="outlineView" destination="JNO-1d-obZ" id="3bN-13-KxE"/>
                         <outlet property="shortIntervalTextField" destination="u7I-jH-EwO" id="U9U-Ia-BEQ"/>
                         <outlet property="workDurationTextField" destination="b6a-Z9-E06" id="E9W-qy-dxV"/>
                     </connections>
