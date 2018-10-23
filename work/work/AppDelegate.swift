@@ -74,7 +74,9 @@ private extension AppDelegate {
             button.action = #selector(togglePopover(_:))
         }
         popover.contentViewController = counterViewController
-        pomodoroTimer.setupTimer()
+        
+        pomodoroTimer.initializeTimer()
+        
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(updateStatusTitle),
                                                name: NSNotification.Name(rawValue: PomodoroTimer.Constants.NotificationName.TOGGLE),

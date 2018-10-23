@@ -325,14 +325,14 @@
             <objects>
                 <viewController storyboardIdentifier="CounterViewController" id="XfG-lQ-9wD" customClass="CounterViewController" customModule="work" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="164" height="127"/>
+                        <rect key="frame" x="0.0" y="0.0" width="164" height="162"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="LS8-oY-VNa" customClass="CounterContainerView" customModule="work" customModuleProvider="target">
-                                <rect key="frame" x="20" y="20" width="124" height="87"/>
+                                <rect key="frame" x="20" y="20" width="124" height="82"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FXw-BO-dgQ">
-                                        <rect key="frame" x="-2" y="45" width="128" height="42"/>
+                                        <rect key="frame" x="-2" y="40" width="128" height="42"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="25:00" id="mLR-D5-nE5">
                                             <font key="font" metaFont="system" size="35"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -340,7 +340,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Qhg-GF-qIl">
-                                        <rect key="frame" x="40" y="15" width="44" height="22"/>
+                                        <rect key="frame" x="40" y="10" width="44" height="22"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" title="Start" id="WiM-HA-sac">
                                             <font key="font" metaFont="system" size="18"/>
                                             <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
@@ -356,15 +356,37 @@
                                     <constraint firstItem="FXw-BO-dgQ" firstAttribute="leading" secondItem="LS8-oY-VNa" secondAttribute="leading" id="prN-fS-bC4"/>
                                 </constraints>
                             </customView>
+                            <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="swh-bg-iV5">
+                                <rect key="frame" x="18" y="119" width="129" height="24"/>
+                                <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="LW4-bX-3HT" id="kOB-S1-jx7">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="menu"/>
+                                    <menu key="menu" id="QyY-P8-Uma">
+                                        <items>
+                                            <menuItem title="Item 1" state="on" id="LW4-bX-3HT"/>
+                                            <menuItem title="Item 2" id="l3g-ne-xvX"/>
+                                            <menuItem title="Item 3" id="BdM-ce-gQj"/>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                                <connections>
+                                    <action selector="onSelectMenuItem:" target="XfG-lQ-9wD" id="xNl-ut-jFD"/>
+                                </connections>
+                            </popUpButton>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="LS8-oY-VNa" firstAttribute="top" secondItem="swh-bg-iV5" secondAttribute="bottom" constant="20" id="0VJ-Ld-3q3"/>
                             <constraint firstItem="LS8-oY-VNa" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="3LI-96-xo3"/>
+                            <constraint firstAttribute="trailing" secondItem="swh-bg-iV5" secondAttribute="trailing" constant="20" id="65z-0l-KXk"/>
+                            <constraint firstItem="swh-bg-iV5" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="L8Y-pP-86K"/>
+                            <constraint firstItem="swh-bg-iV5" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" id="co3-53-AYW"/>
                             <constraint firstAttribute="bottom" secondItem="LS8-oY-VNa" secondAttribute="bottom" constant="20" id="e5T-dD-bLA"/>
                             <constraint firstAttribute="trailing" secondItem="LS8-oY-VNa" secondAttribute="trailing" constant="20" id="f7X-Ve-O3D"/>
-                            <constraint firstItem="LS8-oY-VNa" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" id="gEq-Ps-vAL"/>
+                            <constraint firstItem="LS8-oY-VNa" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="60" id="gEq-Ps-vAL"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="categoriesPopButton" destination="swh-bg-iV5" id="UiM-jv-gt6"/>
                         <outlet property="counterContainer" destination="LS8-oY-VNa" id="Qni-pY-xzd"/>
                         <outlet property="counterTextfield" destination="FXw-BO-dgQ" id="S6u-xd-jVw"/>
                         <outlet property="countersubheading" destination="Qhg-GF-qIl" id="HSN-wB-aXa"/>
@@ -372,7 +394,7 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="175" y="583.5"/>
+            <point key="canvasLocation" x="175" y="601"/>
         </scene>
     </scenes>
 </document>

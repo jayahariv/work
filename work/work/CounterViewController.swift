@@ -17,9 +17,13 @@ final class CounterViewController: NSViewController {
     @IBOutlet private weak var counterTextfield: NSTextField?
     @IBOutlet private weak var countersubheading: NSTextField?
     @IBOutlet private weak var counterContainer: CounterContainerView!
+    @IBOutlet private weak var categoriesPopButton: NSPopUpButton!
     private let pomodoroTimer = PomodoroTimer.shared
     private var uiUpdater: Repeater?
-
+    private let coredataManager = CoreDataManager.shared
+    private var categories = [TaskCategory]()
+    private var selectedCatgory: TaskCategory?
+    
     // MARK: View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,15 +33,24 @@ final class CounterViewController: NSViewController {
     
     override func viewWillAppear() {
         super.viewWillAppear()
-        countersubheading?.stringValue =
-            "\(pomodoroTimer.todaysFinishedTaskCount)/\(UserPreference.shared.dailyWorkTarget)"
+        
+        refreshUI()
     }
     
     // MARK: Button Actions
     @IBAction func onQuit(_ sender: Any) {
         NSApplication.shared.terminate(sender)
     }
+    
+    @IBAction func onSelectMenuItem(_ sender: Any) {
+        if let menuItem = categoriesPopButton.selectedItem {
+            selectedCatgory = TaskCategoryManager.getCategory(menuItem.title)
+            refreshUI()
+        }
+    }
 }
+
+
 
 extension CounterViewController {
     static func freshController() -> CounterViewController {
@@ -55,6 +68,14 @@ extension CounterViewController {
 private extension CounterViewController {
     func initializeView() {
         counterContainer.delegate = self
+        let fetchRequest: NSFetchRequest<TaskCategory> = TaskCategory.fetchRequest()
+        do {
+            categories = try coredataManager.viewContext.fetch(fetchRequest)
+            selectedCatgory = categories.first
+        } catch {
+            print(error)
+        }
+        updateCategoryPushButton()
     }
     
     func updateCounter() {
@@ -67,6 +88,21 @@ private extension CounterViewController {
             }
         }
         uiUpdater?.start()
+    }
+    
+    func updateCategoryPushButton() {
+        categoriesPopButton.removeAllItems()
+        for category in categories {
+            if let name = category.name {
+                categoriesPopButton.addItem(withTitle: name)
+            }
+        }
+    }
+    
+    func refreshUI() {
+        if  let dailyTarget = selectedCatgory?.preference?.dailyTarget {
+            countersubheading?.stringValue = "\(pomodoroTimer.todaysFinishedTaskCount)/\(dailyTarget)"
+        }
     }
 }
 

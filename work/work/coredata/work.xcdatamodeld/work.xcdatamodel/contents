@@ -1,20 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14315.18" systemVersion="18B57c" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14315.18" systemVersion="18B67a" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Note" representedClassName="Note" syncable="YES" codeGenerationType="class">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+    </entity>
+    <entity name="Preference" representedClassName="Preference" syncable="YES" codeGenerationType="class">
+        <attribute name="dailyTarget" optional="YES" attributeType="Integer 16" defaultValueString="8" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="longIntervalAfter" optional="YES" attributeType="Integer 16" defaultValueString="4" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="longIntervalDuration" optional="YES" attributeType="Integer 16" defaultValueString="15" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="pomodoroDuration" optional="YES" attributeType="Integer 16" defaultValueString="25" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="shortIntervalDuration" optional="YES" attributeType="Integer 16" defaultValueString="5" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TaskCategory" inverseName="preference" inverseEntity="TaskCategory" syncable="YES"/>
     </entity>
     <entity name="Task" representedClassName="Task" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TaskCategory" inverseName="task" inverseEntity="TaskCategory" syncable="YES"/>
     </entity>
     <entity name="TaskCategory" representedClassName="TaskCategory" syncable="YES" codeGenerationType="class">
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <relationship name="preference" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Preference" inverseName="category" inverseEntity="Preference" syncable="YES"/>
         <relationship name="task" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Task" inverseName="category" inverseEntity="Task" syncable="YES"/>
     </entity>
     <elements>
         <element name="Note" positionX="-63" positionY="18" width="128" height="75"/>
+        <element name="Preference" positionX="-63" positionY="18" width="128" height="135"/>
         <element name="Task" positionX="-63" positionY="-18" width="128" height="75"/>
-        <element name="TaskCategory" positionX="-54" positionY="0" width="128" height="75"/>
+        <element name="TaskCategory" positionX="-54" positionY="0" width="128" height="90"/>
     </elements>
 </model>

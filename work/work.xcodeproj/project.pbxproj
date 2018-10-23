@@ -22,7 +22,7 @@
 		08900F51216AB59F00DF6CC1 /* Notify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08900F50216AB59F00DF6CC1 /* Notify.swift */; };
 		08900F55216CDEAF00DF6CC1 /* work.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 08900F53216CDEAF00DF6CC1 /* work.xcdatamodeld */; };
 		08900F57216CE09A00DF6CC1 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08900F56216CE09A00DF6CC1 /* CoreDataManager.swift */; };
-		08900F59216DA83F00DF6CC1 /* UserPreference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08900F58216DA83F00DF6CC1 /* UserPreference.swift */; };
+		08900F59216DA83F00DF6CC1 /* TaskCategoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08900F58216DA83F00DF6CC1 /* TaskCategoryManager.swift */; };
 		08900F5B216E3D7200DF6CC1 /* PreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08900F5A216E3D7200DF6CC1 /* PreferenceViewController.swift */; };
 		08B31A1A21724554002D380C /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B31A1921724554002D380C /* EventMonitor.swift */; };
 		E27DA7E47F19DDF8D31679A1 /* Pods_work.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2BABD7A8CE4E34473571E43 /* Pods_work.framework */; };
@@ -60,7 +60,7 @@
 		08900F50216AB59F00DF6CC1 /* Notify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notify.swift; sourceTree = "<group>"; };
 		08900F54216CDEAF00DF6CC1 /* work.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = work.xcdatamodel; sourceTree = "<group>"; };
 		08900F56216CE09A00DF6CC1 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
-		08900F58216DA83F00DF6CC1 /* UserPreference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreference.swift; sourceTree = "<group>"; };
+		08900F58216DA83F00DF6CC1 /* TaskCategoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCategoryManager.swift; sourceTree = "<group>"; };
 		08900F5A216E3D7200DF6CC1 /* PreferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceViewController.swift; sourceTree = "<group>"; };
 		08B31A1921724554002D380C /* EventMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventMonitor.swift; sourceTree = "<group>"; };
 		4BF4DF5623CA742628D60782 /* Pods-work.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-work.release.xcconfig"; path = "Target Support Files/Pods-work/Pods-work.release.xcconfig"; sourceTree = "<group>"; };
@@ -155,8 +155,9 @@
 		08900F52216CDE9D00DF6CC1 /* coredata */ = {
 			isa = PBXGroup;
 			children = (
-				08900F53216CDEAF00DF6CC1 /* work.xcdatamodeld */,
+				08900F58216DA83F00DF6CC1 /* TaskCategoryManager.swift */,
 				08900F56216CE09A00DF6CC1 /* CoreDataManager.swift */,
+				08900F53216CDEAF00DF6CC1 /* work.xcdatamodeld */,
 			);
 			path = coredata;
 			sourceTree = "<group>";
@@ -167,7 +168,6 @@
 				082E41012168F1E1005F302D /* TimeConstants.swift */,
 				08900F4E2169081100DF6CC1 /* PomodoroTimer.swift */,
 				08900F50216AB59F00DF6CC1 /* Notify.swift */,
-				08900F58216DA83F00DF6CC1 /* UserPreference.swift */,
 				08B31A1921724554002D380C /* EventMonitor.swift */,
 			);
 			path = helper;
@@ -357,7 +357,7 @@
 				08900F5B216E3D7200DF6CC1 /* PreferenceViewController.swift in Sources */,
 				08900F4F2169081100DF6CC1 /* PomodoroTimer.swift in Sources */,
 				08900F57216CE09A00DF6CC1 /* CoreDataManager.swift in Sources */,
-				08900F59216DA83F00DF6CC1 /* UserPreference.swift in Sources */,
+				08900F59216DA83F00DF6CC1 /* TaskCategoryManager.swift in Sources */,
 				082E41002167A800005F302D /* CounterContainerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

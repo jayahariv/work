@@ -24,8 +24,13 @@ final class NotesHomeViewController: NSViewController {
     // MARK: View lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadContent()
         initializeUI()
+    }
+    
+    override func viewWillAppear() {
+        super.viewWillAppear()
+        loadContent()
+        
     }
     
     override func viewDidDisappear() {
@@ -36,7 +41,6 @@ final class NotesHomeViewController: NSViewController {
 private extension NotesHomeViewController {
     func initializeUI() {
         title = C.TITLE
-        textView.string = note?.content ?? ""
     }
     
     func loadContent() {
@@ -51,6 +55,7 @@ private extension NotesHomeViewController {
         } catch {
             print(error)
         }
+        textView.string = note?.content ?? ""
     }
     
     func save() {

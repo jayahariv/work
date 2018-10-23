@@ -44,21 +44,22 @@ final class PomodoroTimer {
     private var remainingSeconds: Int = 0
     private var isWorking: Bool = false
     private let coredataManager = CoreDataManager.shared
-    
     private var resignDate: Date?
     private var resignRemainingSeconds: Int = 0
+    private var preference: Preference!
     
     /**
      Call this method once for setting up the timer from AppDelegate
      
      */
-    func setupTimer() {
+    func initializeTimer(_ preference: Preference? = nil) {
         guard timer == nil else {
             return
         }
+        initializePreference(preference)
         initializeAppNotifications()
         isWorking = true
-        remainingSeconds = UserPreference.shared.workDuration * TimeConstants.MINUTE_IN_SECONDS
+        remainingSeconds = Int(self.preference.pomodoroDuration) * TimeConstants.MINUTE_IN_SECONDS
         timer = Repeater.every(.seconds(1)) { [weak self] (_) in
             guard let self = self else {
                 return
@@ -75,7 +76,7 @@ final class PomodoroTimer {
     
     func toggle() {
         if timer == nil {
-            setupTimer()
+            initializeTimer()
         }
         if timer?.state == .executing {
             timer?.pause()
@@ -94,24 +95,40 @@ final class PomodoroTimer {
         if isWorking {
             let eligibleForLongBreak =
                 todaysFinishedTaskCount != 0 &&
-                    todaysFinishedTaskCount % UserPreference.shared.longBreakAfter == 0
+                    todaysFinishedTaskCount % Int(preference.longIntervalAfter) == 0
             let nextIntervalInMinutes =
                 eligibleForLongBreak
-                    ? UserPreference.shared.longBreakDuration
-                    : UserPreference.shared.shortBreakDuration
-            remainingSeconds = nextIntervalInMinutes * TimeConstants.MINUTE_IN_SECONDS
+                    ? preference.longIntervalDuration
+                    : preference.shortIntervalDuration
+            remainingSeconds = Int(nextIntervalInMinutes) * TimeConstants.MINUTE_IN_SECONDS
         } else {
-            remainingSeconds = UserPreference.shared.workDuration * TimeConstants.MINUTE_IN_SECONDS
+            remainingSeconds = Int(preference.pomodoroDuration) * TimeConstants.MINUTE_IN_SECONDS
         }
         isWorking.toggle()
+    }
+    
+    func setPreference(_ updatedPreference: Preference) {
+        preference = updatedPreference
+        timer = nil
+        initializeTimer(updatedPreference)
     }
 }
 
 private extension PomodoroTimer {
+    
+    func initializePreference(_ preference: Preference?) {
+        if preference == nil {
+            TaskCategoryManager.createDefaultTaskCategory()
+            self.preference = TaskCategoryManager.getAllTaskCategories().first?.preference
+        } else {
+            self.preference = preference
+        }
+    }
+    
     func finishTimer() {
         if isWorking {
             saveInterval()
-            if todaysFinishedTaskCount == UserPreference.shared.dailyWorkTarget {
+            if todaysFinishedTaskCount == Int(preference.dailyTarget) {
                 Notify.shared.dailyTargetAchieved()
             } else {
                 Notify.shared.takeBreak()
@@ -163,6 +180,21 @@ extension PomodoroTimer {
                          selector: #selector(onWakeNote(note:)),
                          name: NSWorkspace.screensDidWakeNotification,
                          object: nil)
+    }
+    
+    func removeAppNotifications() {
+        NSWorkspace
+            .shared
+            .notificationCenter
+            .removeObserver(self,
+                            name: NSWorkspace.screensDidSleepNotification,
+                            object: nil)
+        NSWorkspace
+            .shared
+            .notificationCenter
+            .removeObserver(self,
+                            name: NSWorkspace.screensDidWakeNotification,
+                            object: nil)
     }
     
     @objc func onWakeNote(note: NSNotification) {

@@ -23,14 +23,9 @@ final class PomodoroPreferenceViewController: NSViewController {
 
     // MARK: View lifecycle
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        loadCategories()
-        fillDefaultValues()
-    }
-    
     override func viewWillAppear() {
         super.viewWillAppear()
+        loadCategories()
     }
     
     override func viewWillDisappear() {
@@ -43,45 +38,67 @@ final class PomodoroPreferenceViewController: NSViewController {
     }
     
     @IBAction func onRemoveCategory(_ sender: Any) {
-        // todo: implement
+        guard let category = selectedCategory else {
+            return
+        }
+        
+        coredataManager.viewContext.delete(category)
+        do {
+            try coredataManager.viewContext.save()
+        } catch {
+            print(error)
+        }
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
+            self.loadCategories()
+        }
     }
 }
 
 private extension PomodoroPreferenceViewController {
     
-    func fillDefaultValues() {
-        dailyTargetTextField.stringValue = "\(UserPreference.shared.dailyWorkTarget)"
-        workDurationTextField.stringValue = "\(UserPreference.shared.workDuration)"
-        shortIntervalTextField.stringValue = "\(UserPreference.shared.shortBreakDuration)"
-        longIntervalTextField.stringValue = "\(UserPreference.shared.longBreakDuration)"
-        longIntervalAfterTextField.stringValue = "\(UserPreference.shared.longBreakAfter)"
+    func fillDefaultValues(_ preference: Preference) {
+        dailyTargetTextField.stringValue = "\(preference.dailyTarget)"
+        workDurationTextField.stringValue = "\(preference.pomodoroDuration)"
+        shortIntervalTextField.stringValue = "\(preference.shortIntervalDuration)"
+        longIntervalTextField.stringValue = "\(preference.longIntervalDuration)"
+        longIntervalAfterTextField.stringValue = "\(preference.longIntervalAfter)"
     }
     
     func savePreferences() {
+        guard let preference = selectedCategory?.preference else{
+            return
+        }
         let dailyTarget = dailyTargetTextField.stringValue
-        if let dailyTargetInt = Int(dailyTarget), dailyTargetInt != UserPreference.shared.dailyWorkTarget {
-            UserPreference.shared.saveDailyWorkTarget(dailyTargetInt)
+        if let dailyTargetInt = Int16(dailyTarget), dailyTargetInt != preference.dailyTarget {
+            preference.dailyTarget = dailyTargetInt
         }
         
         let workDuration = workDurationTextField.stringValue
-        if let workDurationInt = Int(workDuration), workDurationInt != UserPreference.shared.workDuration {
-            UserPreference.shared.saveWorkDuration(workDurationInt)
+        if let workDurationInt = Int16(workDuration), workDurationInt != preference.pomodoroDuration {
+            preference.pomodoroDuration = workDurationInt
         }
         
         let shortInterval = shortIntervalTextField.stringValue
-        if let shortIntervalInt = Int(shortInterval), shortIntervalInt != UserPreference.shared.shortBreakDuration {
-            UserPreference.shared.saveShortBreakDuration(shortIntervalInt)
+        if let shortIntervalInt = Int16(shortInterval), shortIntervalInt != preference.shortIntervalDuration {
+            preference.shortIntervalDuration = shortIntervalInt
         }
         
         let longBreakDuration = longIntervalTextField.stringValue
-        if let longBreakDurationInt = Int(longBreakDuration), longBreakDurationInt != UserPreference.shared.longBreakDuration {
-            UserPreference.shared.saveLongBreakDuration(longBreakDurationInt)
+        if let longBreakDurationInt = Int16(longBreakDuration), longBreakDurationInt != preference.longIntervalDuration {
+            preference.longIntervalDuration = longBreakDurationInt
         }
         
         let longIntervalAfter = longIntervalAfterTextField.stringValue
-        if let longIntervalAfterInt = Int(longIntervalAfter), longIntervalAfterInt != UserPreference.shared.longBreakAfter {
-            UserPreference.shared.saveLongBreakAfter(longIntervalAfterInt)
+        if let longIntervalAfterInt = Int16(longIntervalAfter), longIntervalAfterInt != preference.longIntervalAfter {
+            preference.longIntervalAfter = longIntervalAfterInt
         }
+        
+        coredataManager.saveContext()
     }
     
     func loadCategories() {
@@ -91,6 +108,11 @@ private extension PomodoroPreferenceViewController {
         } catch {
             print(error)
         }
+        selectedCategory = categories.first
+        if let preference = selectedCategory?.preference {
+            fillDefaultValues(preference)
+        }
+        
         outlineView.reloadData()
     }
     
@@ -117,7 +139,15 @@ private extension PomodoroPreferenceViewController {
             if modalResponse == .alertFirstButtonReturn {
                 let taskCategory = TaskCategory(context: self.coredataManager.viewContext)
                 taskCategory.name = categoryName
+                taskCategory.preference = Preference(context: self.coredataManager.viewContext)
                 self.coredataManager.saveContext()
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else {
+                        return
+                    }
+                    
+                    self.loadCategories()
+                }
             }
         })
     }
@@ -149,7 +179,10 @@ extension PomodoroPreferenceViewController: NSOutlineViewDataSource, NSOutlineVi
     }
     
     func outlineView(_ outlineView: NSOutlineView, shouldSelectItem item: Any) -> Bool {
-        selectedCategory = item as! TaskCategory
+        selectedCategory = item as? TaskCategory
+        if let preference = selectedCategory?.preference {
+            fillDefaultValues(preference)
+        }
         return true
     }
 }
