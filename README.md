@@ -1,4 +1,4 @@
-# work
+# work [inactive]
 This app is to make a one stop shop for all important tools in office. 
 
 NB: Its primarily building to make myself more productive. 
